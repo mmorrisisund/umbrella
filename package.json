@@ -1,0 +1,12 @@
+{
+  "name": "umbrella-server",
+  "version": "1.0.0",
+  "description": "Server for umbrella weather app",
+  "main": "index.mjs",
+  "author": "Mike Morris",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jsend": "^1.1.0"
+  }
+}
