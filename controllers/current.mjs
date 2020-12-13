@@ -9,11 +9,11 @@ export const getCurrentWeatherByCityName = async (req, res, next) => {
 
   try {
     const { data } = await axios.get(
-      `${baseUrl}weather?q=${name}&appid=${apiKey}`
+      `${baseUrl}weather?q=${name}&units=imperial&&appid=${apiKey}`
     )
 
     res.json(jsend.success(data))
   } catch (error) {
-    res.json(jsend.error({ error }))
+    res.json(jsend.error({ message: error }))
   }
 }
