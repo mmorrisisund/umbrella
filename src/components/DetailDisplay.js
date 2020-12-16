@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DetailDisplay = () => {
+const DetailDisplay = ({ high, low, humidity, pressure }) => {
   return (
     <div className='w-1/2'>
       <div className='h-16 flex items-center'>
@@ -10,19 +10,19 @@ const DetailDisplay = () => {
         <tbody>
           <tr>
             <td className='w-3/4'>High</td>
-            <td className='w-1/4'>38&#176;</td>
+            <td className='w-1/4'>{Math.round(high)}&#176;</td>
           </tr>
           <tr>
             <td>Low</td>
-            <td>26&#176;</td>
+            <td>{Math.round(low)}&#176;</td>
           </tr>
           <tr>
             <td>Humidity</td>
-            <td>13%</td>
+            <td>{humidity}%</td>
           </tr>
           <tr>
             <td>Air Pressure</td>
-            <td>984hPa</td>
+            <td>{pressure}hPa</td>
           </tr>
         </tbody>
       </table>
