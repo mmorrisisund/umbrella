@@ -6,6 +6,7 @@
   "author": "Mike Morris",
   "license": "MIT",
   "dependencies": {
+    "@googlemaps/google-maps-services-js": "^3.1.13",
     "axios": "^0.21.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
