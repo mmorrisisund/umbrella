@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { WiUmbrella } from 'react-icons/wi'
 
 import AtmosphereDisplay from './components/AtmosphereDisplay'
 import DetailDisplay from './components/DetailDisplay'
@@ -12,20 +13,45 @@ const getPrecipitationType = weatherObj => {
 function App () {
   const [city, setCity] = useState('')
   const [weather, setWeather] = useState(undefined)
+  const [notFound, setNotFound] = useState(false)
+  const [geoCoords, setGeoCoords] = useState(undefined)
+  const [location, setLocation] = useState(undefined)
 
   useEffect(() => {
-    if (city) {
-      fetch(`/current/${city}`)
+    if (geoCoords) {
+      fetch(`/current?lat=${geoCoords.latitude}&lng=${geoCoords.longitude}`)
         .then(resp => resp.json())
-        .then(({ data }) => setWeather(data))
+        .then(({ data, status }) => {
+          if (status === 'error') {
+            setWeather(undefined)
+            setNotFound(true)
+          } else {
+            setWeather(data.weather)
+            setLocation(data.location)
+            setNotFound(false)
+          }
+        })
         .catch(console.log)
     }
-  }, [city])
+  }, [geoCoords])
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(geolocationSuccess, console.log)
+  }, [])
+
+  const geolocationSuccess = ({ coords }) => {
+    setGeoCoords(coords)
+  }
 
   return (
     <div className='bg-gradient-to-b from-blue-600 to-blue-300 min-h-screen min-w-max'>
-      <header className='h-16 border-b border-blue-900'>
-        <h1>umbrella</h1>
+      <header className='h-16 w-full flex'>
+        <div>
+          <h1 className='text-3xl text-blue-100 font-light uppercase tracking-widest inline'>
+            umbrella
+          </h1>
+          <WiUmbrella className='text-4xl text-blue-100 mb-4 inline' />
+        </div>
       </header>
       <main>
         <SearchBox onSubmit={setCity} />
@@ -56,6 +82,16 @@ function App () {
               </div>
             </div>
           </>
+        )}
+        {notFound && (
+          <div className='container mx-auto text-center'>
+            <h2 className='text-2xl text-blue-100'>
+              We're sorry, we could not locate that city.
+            </h2>
+            <h3 className='text-xl text-blue-100'>
+              Please try your search again.
+            </h3>
+          </div>
         )}
       </main>
     </div>
