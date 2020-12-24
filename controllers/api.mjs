@@ -44,9 +44,16 @@ async function getDataByLatLng (lat, lng) {
     const locationPromise = axios.get(
       `${googleUrl}json?latlng=${lat},${lng}&key=${googleApiKey}`
     )
-    const results = await Promise.all([weatherPromise, locationPromise])
+    const [weatherResult, locationResult] = await Promise.all([
+      weatherPromise,
+      locationPromise
+    ])
 
-    return processResults(results[0], results[1])
+    let data = {}
+    if (weatherResult) data.weather = weatherResult.data
+    if (locationResult) data.location = extractLocation(locationResult.data)
+
+    return data
   } catch (error) {
     return {
       message: 'City could not be found.',
@@ -55,11 +62,17 @@ async function getDataByLatLng (lat, lng) {
   }
 }
 
-function processResults (weatherResult, locationResult) {
-  let result = {}
-
-  if (weatherResult) result.weather = weatherResult.data
-  if (locationResult) result.location = locationResult.data
-
-  return result
+function extractLocation (geocodeResp) {
+  return geocodeResp.results[0]?.address_components?.reduce(
+    (location, component) => {
+      if (component.types[0] === 'locality')
+        location.city = component.short_name
+      if (component.types[0] === 'administrative_area_level_1')
+        location.state = component.short_name
+      if (component.types[0] === 'country')
+        location.country = component.short_name
+      return location
+    },
+    {}
+  )
 }

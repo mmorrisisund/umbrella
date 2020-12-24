@@ -3,12 +3,12 @@ import express from 'express'
 import jsend from 'jsend'
 import morgan from 'morgan'
 
-import currentWeatherRoutes from './routes/current.mjs'
+import apiRoutes from './routes/api.mjs'
 
 const app = express()
 app.use(morgan('dev'))
 
-app.use('/current', currentWeatherRoutes)
+app.use('/api', apiRoutes)
 app.use('/', (req, res) => res.json(jsend.success({ weather: 'sunny' })))
 
 app.listen(3001, () => console.log('Connected on port 3001'))

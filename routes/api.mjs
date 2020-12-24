@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import { getCurrentWeather } from '../controllers/current.mjs'
+import { getCurrentWeather } from '../controllers/api.mjs'
 
-import { getCurrentWeatherByCityName } from '../controllers/current.mjs'
+import { getCurrentWeatherByCityName } from '../controllers/api.mjs'
 
 const router = Router()
 
