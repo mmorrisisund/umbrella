@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+
 import Forecast from './Forecast'
 import LocationTitle from './LocationTitle'
 import TemperatureDisplay from './TemperatureDisplay'
@@ -31,9 +32,18 @@ const MainPage = () => {
   return (
     <div>
       <main className='mt-2'>
-        <LocationTitle location={location} />
-        <TemperatureDisplay />
-        <Forecast />
+        {location && <LocationTitle location={location} />}
+        {weather && (
+          <>
+            <TemperatureDisplay
+              temperature={weather.current.temp}
+              feelsLike={weather.current.feels_like}
+              high={weather.daily[0].temp.max}
+              low={weather.daily[0].temp.min}
+            />
+            <Forecast forecast={weather.daily} />
+          </>
+        )}
       </main>
     </div>
   )
