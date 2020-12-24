@@ -39,7 +39,7 @@ export const getCurrentWeather = async (req, res) => {
 async function getDataByLatLng (lat, lng) {
   try {
     const weatherPromise = axios.get(
-      `${weatherUrl}weather?lat=${lat}&lon=${lng}&units=imperial&appid=${weatherApiKey}`
+      `${weatherUrl}onecall?lat=${lat}&lon=${lng}&exclude=minutely,hourly,alerts&units=imperial&appid=${weatherApiKey}`
     )
     const locationPromise = axios.get(
       `${googleUrl}json?latlng=${lat},${lng}&key=${googleApiKey}`
