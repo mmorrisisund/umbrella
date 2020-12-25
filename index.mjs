@@ -13,4 +13,8 @@ app.use('/', (req, res) =>
   res.sendFile(path.join(process.cwd(), 'client', 'build', 'index.html'))
 )
 
-app.listen(3001, () => console.log('Connected on port 3001'))
+let port = process.env.PORT
+if (port == null || port == '') {
+  port = 8000
+}
+app.listen(port, () => console.log(`Connected on port ${port}`))
