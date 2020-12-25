@@ -40,6 +40,7 @@ const MainPage = () => {
               feelsLike={weather.current.feels_like}
               high={weather.daily[0].temp.max}
               low={weather.daily[0].temp.min}
+              code={weather.current.weather[0].icon}
             />
             <Forecast forecast={weather.daily} />
           </>
