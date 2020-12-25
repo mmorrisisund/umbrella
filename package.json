@@ -1,0 +1,16 @@
+{
+  "name": "umbrella-server",
+  "version": "1.0.0",
+  "description": "Server for umbrella weather app",
+  "main": "index.mjs",
+  "author": "Mike Morris",
+  "license": "MIT",
+  "dependencies": {
+    "@googlemaps/google-maps-services-js": "^3.1.13",
+    "axios": "^0.21.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsend": "^1.1.0",
+    "morgan": "^1.10.0"
+  }
+}
